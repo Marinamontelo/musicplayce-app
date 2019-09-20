@@ -1,0 +1,37 @@
+
+<div fxLayoutAlign="end start" style="margin-bottom: 15px">
+    <button mat-raised-button color="primary" (click)="openDialogNovo()" >
+        <mat-icon>folder_open</mat-icon>
+            Nova String
+    </button> 
+</div>
+
+<div *ngIf="strings.data.push()">
+    <mat-table #table [dataSource]="strings" class="align-text-left ">          
+        <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+        </ng-container>           
+        
+        <ng-container matColumnDef="valor">
+        <mat-header-cell *matHeaderCellDef> Valor </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.valor}} </mat-cell>
+        </ng-container>
+       
+        <ng-container matColumnDef="customColumn">           
+            <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
+            <mat-cell *matCellDef="let element">                 
+                <button mat-button (click)="openDialogEditar(element)" title="Editar"><mat-icon>create_new_folder</mat-icon></button>
+                <button mat-button (click)="openDialogDelete(element)" title="Deletar"><mat-icon>delete</mat-icon></button>
+            </mat-cell>          
+            
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>                
+    </mat-table>
+    <mat-paginator [length]="strings.data.length" [pageSize]="5" [pageSizeOptions]="[5, 10, 15, 20, 25]"></mat-paginator>
+</div>        
+<div *ngIf="!strings.data.push()">
+    Nenhum registro encontrado.
+</div>
+
